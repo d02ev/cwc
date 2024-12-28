@@ -19,7 +19,7 @@ class Parser {
   static size_t parse_w_arg(std::istream &std_input) noexcept;
 
   static size_t parse_m_arg(std::wifstream &file) noexcept;
-  static size_t parse_m_arg(std::wistream &std_input) noexcept;
+  static size_t parse_m_arg(const std::string& std_input) noexcept;
 };
 
 #endif // PARSER_H

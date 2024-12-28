@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
   if (argc == 2) {
     // value from stdin
     if (valid_cmd_args.contains(argv[1])) {
+
       std::string arg = &argv[1][0];
       if (arg == "-c") {
         size_t c_arg = Parser::parse_c_arg(std::cin);
@@ -36,7 +37,13 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
       }
       if (arg == "-m") {
+        std::string std_input((std::istreambuf_iterator<char>(std::cin)), std::istreambuf_iterator<char>());
+        size_t m_arg = Parser::parse_m_arg(std_input);
 
+        std::cout << m_arg << std::endl;
+        std::cin.clear();
+
+        return EXIT_SUCCESS;
       }
     } else {
       std::ifstream file(argv[1], std::ios::binary);

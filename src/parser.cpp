@@ -104,18 +104,14 @@ size_t Parser::parse_m_arg(std::wifstream &file) noexcept {
   return num_of_bytes_loc;
 }
 
-size_t Parser::parse_m_arg(std::wistream &std_input) noexcept {
-  std_input.imbue(std::locale(std_input.getloc(), new std::codecvt_utf8<wchar_t>));
+size_t Parser::parse_m_arg(const std::string &std_input) noexcept {
+  size_t num_of_char_mult = 0;
 
-  size_t num_of_bytes_loc = 0;
-  wchar_t ch;
-
-  while (std_input.get(ch)) {
-    ++num_of_bytes_loc;
+  for (const char& ch : std_input) {
+    if ((ch & 0xC0) != 0x80) {
+      ++num_of_char_mult;
+    }
   }
 
-  std_input.clear();
-  std_input.seekg(0, std::ios::beg);
-
-  return num_of_bytes_loc;
+  return num_of_char_mult;
 }
